@@ -1,0 +1,11 @@
+.ql-toolbar{
+    text-align: center !important;
+}
+
+#editor{
+    background-color: white !important;
+}
+
+.disabled{
+    cursor: not-allowed;
+}
