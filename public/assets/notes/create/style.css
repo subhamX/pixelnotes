@@ -1,11 +1,122 @@
+*, *::after, *::before{
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
 .ql-toolbar{
     text-align: center !important;
+    min-height: 10vh
 }
 
+#editor, .ql-toolbar{
+    color: black;
+    font-size: 16px;
+    width: 90%;
+    margin: 0 auto;
+}
+body{
+    background: #EFEFE8;
+}
 #editor{
-    background-color: white !important;
+    height: 75vh;
+    margin-bottom: 40px;
 }
-
+.ql-editor, .ql-editor, .ql-editor::before{
+    background: white !important;
+}
 .disabled{
     cursor: not-allowed;
+}
+
+
+.center-align{
+    text-align: center;
+}
+header{
+    background: black
+}
+.nav-wrapper{
+    color: white;
+    width: 90%;
+    min-height: 10vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.links{
+    list-style-type: none;
+}
+
+.links a{
+    text-decoration: none;
+    color: white;
+}
+
+.links a:visited{
+    color: none;
+}
+
+.left-align{
+    text-align: left;
+}
+
+.notes-section{
+    margin-top: 50px;
+}
+
+/* FORM */
+
+#notes-id-form{
+    font-weight: bold;
+    width: 90%;
+    margin: 5px auto;
+    text-align: center;
+}
+
+#notes-id-form label{
+    font-size: 18px;
+    height: 20px;
+    padding: 15px;
+    margin: 5px 10px;
+}
+#notes-id-form input{
+    border: white;
+    background: white;
+    border-radius: 20px;
+    font-size: 15px;
+    height: 20px;
+    padding: 15px;
+    outline: none;
+    margin: 25px 10px;
+}
+
+#notes-id-form button{
+    background-color: #007bff;
+    color:white;
+    border: #007bff;
+    border-radius: 20px;
+    font-weight: bold;
+    padding: 15px; 
+    box-sizing: border-box;
+    margin: 25px 10px;
+}
+
+/* FORM STYLING END */
+
+
+@media only screen and (max-width: 660px){
+    #editor, .ql-toolbar{
+        color: black;
+        font-size: 12px;
+        width: 90%;
+        margin: 0 auto;
+    }
+    #notes-id-form *{
+        font-size: 10px;
+    } 
 }

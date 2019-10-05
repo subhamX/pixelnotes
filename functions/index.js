@@ -21,9 +21,8 @@ let db = admin.firestore();
 // Recieves Note id and tries to fetch data with that id
 app.post('/getdata/', async (request, response) => {
     let data = request.body;
-    console.log(data.id);
+    let docRef = db.collection('notes').doc(""+data.id);
     try{
-        let docRef = db.collection('notes').doc(data.id);
         var doc = await docRef.get();
         if (!doc.exists) {
             // Case: No Document Exists
@@ -33,7 +32,6 @@ app.post('/getdata/', async (request, response) => {
             response.send(newDoc);
         } else {
             // Case: Document Exists
-            console.log('Document data:', doc.data());
             response.send(doc.data()); 
         }
     }catch(err){
@@ -41,6 +39,19 @@ app.post('/getdata/', async (request, response) => {
         response.send(err);
     }
 });
+
+// Recieves Note id and tries to update new data
+app.post('/updatedata/', async (req, res)=> {
+    let data = req.body;
+    let docRef = db.collection('notes').doc(""+data.id);
+    try{
+        let setData = await docRef.update(data);
+        res.send(setData);
+    }catch(err){
+        res.send(err);
+    }
+});
+
 
 // Exporting app
 exports.api = functions.https.onRequest(app);

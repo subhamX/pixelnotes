@@ -37,18 +37,17 @@ function validateID(noteID){
 }
 document.getElementById('notes-id-form').addEventListener( 'submit', (e) =>{
 	e.preventDefault();
-	let noteID = document.getElementsByName('id')[0].value;
+	var noteID = document.getElementsByName('id')[0].value;
 	if(validateID(noteID)){
-		console.log(`[${noteID}]`);
 		getData(noteID).then( () => {
-			editor.classList.remove('disabled')
+			editor.classList.remove('disabled');
+			console.log("Fetch Complete!");
 		});
 	}else{
-		console.log('no')
+		console.log('Invalid ID')
 	}
 })
 
-const getDataUrl = rawUrl+'getdata/';
 async function getData(id){
 	const options = {
 		method: 'POST',
@@ -58,17 +57,39 @@ async function getData(id){
 		body: JSON.stringify({ id: parseInt(id)}),
 	}
 	try{
-		console.log(getDataUrl);
-		let response = await fetch(getDataUrl, options);
-		let resJ = await response.text();
-		console.log(resJ)
+		const url = rawUrl+'getdata/';
+		let response = await fetch(url, options);
+		let resJ = await response.json();
 		quill.enable();
+		// Setting Content To the editor
 		quill.setContents(resJ.ops);
 		contentSet = true;
 	}catch(err){
-		console.log(err)
+		console.log(err);
 	}
-	// Setting Content To the editor
 }
 
+// Updating Data...
+async function updateData(){
+	var noteID = document.getElementsByName('id')[0].value;
+	// Send Data To Backend
+	var data = quill.getContents();
+	data.id=noteID;
+	const options = {
+		method: 'POST',
+		headers: {
+			 'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	}
+	const url = rawUrl+'updatedata/';
+	let response = await fetch(url, options);
+	let resJ = await response.json();
+	// console.log("Updated");
+}
 
+setInterval( () => {
+	if(contentSet){
+		updateData()
+	}
+}, 5000);
